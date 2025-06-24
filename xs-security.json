@@ -1,0 +1,15 @@
+{
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.admin, employes",
+      "description": "admin, employes"
+    },
+    {
+      "name": "$XSAPPNAME.admin",
+      "description": "admin"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [],
+  "authorities-inheritance": false
+}
