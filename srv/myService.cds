@@ -10,9 +10,12 @@ service myService @(required: 'authenticated-user'){
     };
     action calEmpSalary(Employee: empId) returns Boolean;
 }
+//Grand authorization by role
 annotate myService with @(restrict:[
     {grant: ['READ'],
-    to: ['admin, employes']},
-    {grant: ['UPDATE', 'CREATE','DELETE'],
+    to: ['employee','admin']},
+    {grant: ['READ','UPDATE','CREATE','DELETE'],
     to: ['admin']}
 ]) ;
+
+
