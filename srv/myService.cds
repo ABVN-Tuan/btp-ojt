@@ -10,12 +10,33 @@ service myService @(required: 'authenticated-user'){
     };
     action calEmpSalary(Employee: empId) returns Boolean;
 }
-//Grand authorization by role
-annotate myService with @(restrict:[
+// Grand authorization for entity Employees by role
+annotate myService.Employees with @(restrict:[
     {grant: ['READ'],
-    to: ['employee','admin']},
+    to: ['employee']},
     {grant: ['READ','UPDATE','CREATE','DELETE'],
     to: ['admin']}
 ]) ;
 
+//Grand authorization for entity Roles by role
+annotate myService.Roles with @(restrict:[
+    {grant: ['READ'],
+    to: ['employee']},
+    {grant: ['READ','UPDATE','CREATE','DELETE'],
+    to: ['admin']}
+]) ;
+
+//Grand authorization for entity Departments by role
+annotate myService.Departments with @(restrict:[
+    {grant: ['READ'],
+    to: ['employee']},
+    {grant: ['READ','UPDATE','CREATE','DELETE'],
+    to: ['admin']}
+]) ;
+
+//Grand authorization for entity leaveRequest by role
+annotate myService.leaveRequest with @(restrict:[
+    {grant: ['READ','UPDATE','CREATE'],
+    to: ['admin']}
+]) ;
 
