@@ -5,6 +5,7 @@ entity Roles : managed{
     key ID: UUID;
     name: String(50);
     baseSalary: Double;
+    allowance: Double
 }
 //Departments
 entity Departments{
@@ -23,6 +24,7 @@ entity Employees : managed {
   role: Association to Roles;
   department : Association to Departments;
   currency : Currency;
+  performanceRating : Integer @assert.range: [1, 2, 3, 4, 5];
     
 }
 
