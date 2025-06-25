@@ -1,15 +1,33 @@
 {
   "scopes": [
     {
-      "name": "$XSAPPNAME.admin, employes",
-      "description": "admin, employes"
+      "name": "$XSAPPNAME.employee",
+      "description": "employee"
     },
     {
       "name": "$XSAPPNAME.admin",
       "description": "admin"
     }
   ],
+  "xsappname": "ojt-hybrid",
+  "tenant-mode": "dedicated",
+  "oauth2-configuration": {
+  "redirect-uris": [
+    "https://*.applicationstudio.cloud.sap/**"
+   ]
+  },
   "attributes": [],
-  "role-templates": [],
+  "role-templates": [
+    {
+      "name": "Viewer",
+      "description": "Viewer role",
+      "scope-references": ["$XSAPPNAME.employee"]
+    },
+    {
+      "name": "Admin",
+      "description": "Admin role",
+      "scope-references": ["$XSAPPNAME.admin"]
+    }
+  ],
   "authorities-inheritance": false
 }
