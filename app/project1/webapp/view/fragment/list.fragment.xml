@@ -1,0 +1,70 @@
+<core:FragmentDefinition xmlns:table="sap.ui.table" xmlns:f="sap.f" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc" height="100%">
+    <VBox id = "listContainer" class = "listContainer" visible="true">
+        <Title id = "listTitle" class = "listTitle" text = "{i18n>empListTitle}"></Title>
+        <VBox id = "vtable" class = "table">
+            <fb:FilterBar id = "filterBar" search=".onFilterSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad" 
+            useToolbar="false" >
+            <fb:filterGroupItems>
+            <fb:FilterGroupItem id = "filterGrItem1" name = "Department" label="Department" groupName="gr1" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiComboBox id = "depCbb" name = "Department" selectionChange=".onCbbSelection" items = "{departmentsList>/}" >
+                        <core:Item id="Item" key="{departmentsList>id}" text="{departmentsList>name}" />
+                    </MultiComboBox>             
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id = "filterGrItem2" name = "Role" label="Role" groupName="gr2" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiComboBox id = "roleCbb" name = "Role" selectionChange=".onCbbSelection" items = "{roleList>/}" >
+                        <core:Item id="roleItem" key="{roleList>id}" text="{roleList>name}" />
+                    </MultiComboBox>             
+                </fb:control>
+            </fb:FilterGroupItem>
+            </fb:filterGroupItems>
+        </fb:FilterBar>
+        <Table id = "itemTable" rememberSelections="false" selectionChange=".onItemSelection" mode = "SingleSelect" items ="{path: 'EmployeeList>/'}"
+        itemPress=".onPressItem" fixedLayout="false" growingThreshold="100" updateFinished="onUpdateStatusTb" growing="true" >
+        <columns>
+        <Column id="colName" width="30%" hAlign="Left">
+            <Label id="lName" text="{i18n>nameText}" textAlign="Center" width="100%" />
+        </Column>
+        <Column id="colRole" hAlign="Center" width="20%">
+            <Label id="lRole" text="{i18n>roleText}" textAlign="Center" width="100%" />
+        </Column>
+        <Column id="colDepartment" width="20%" hAlign="Left">
+            <Label id="lDepartment" text="{i18n>deparText}" width="100%" />
+        </Column>
+        <Column id="colEmail" width="30%" hAlign="Left">
+            <Label id="lEmail" text="{i18n>emailText}" textAlign="Left" width="100%" />
+        </Column>
+    </columns>
+    <items>
+        <ColumnListItem id="clListItem" vAlign="Middle" type="Active">
+            <cells>
+                <Text id="txtName" class="textTable"
+                    text="{EmployeeList>firstName} {EmployeeList>lastName}"
+                    textAlign="Center" />
+                    <Text id="txtRole" class="textTable"
+                    text="{EmployeeList>role/name}"
+                    textAlign="Center" />
+                <Text id="txtDepart" class="textTable"
+                    text="{EmployeeList>department/name}" wrapping="false" />
+                <Text id="txtEmail" class="textTable" text="{EmployeeList>email}"
+                    textAlign="Center" />
+            </cells>
+        </ColumnListItem>
+    </items>
+        </Table>
+        </VBox>
+        <Toolbar id="ToolbarList" visible="{VisibleControl>/List}">
+            <content>
+                <ToolbarSpacer id="ToolbarSpacerList" />
+                <Button id="btnClose" type="Default" text="Close" press="onPressClose" />
+            </content>
+        </Toolbar>
+    </VBox>
+</core:FragmentDefinition>
