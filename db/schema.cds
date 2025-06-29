@@ -21,10 +21,11 @@ entity Employees : managed {
   hireDate   : Date;
   dateOfBirth: Date;
   salary     : Double;
+  gender     : String;
   role: Association to Roles;
   department : Association to Departments;
   currency : Currency;
-  performanceRating : Integer @assert.range: [1, 2, 3, 4, 5];
+  performanceRating : Integer @assert.range: [1, 5];
     
 }
 

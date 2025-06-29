@@ -8,14 +8,15 @@ service myService @(required: 'authenticated-user'){
     type empId {
         empID: UUID;
     };
+    function whoami() returns String;
     action calEmpSalary(Employee: empId) returns Boolean;
 }
 // Grand authorization for entity Employees by role
 annotate myService.Employees with @(restrict:[
-    {grant: ['READ'],
-    to: ['employee']},
+    // {grant: ['READ'],
+    // to: ['employee']},
     {grant: ['READ','UPDATE','CREATE','DELETE'],
-    to: ['admin']}
+    to: ['admin','']},
 ]) ;
 
 //Grand authorization for entity Roles by role

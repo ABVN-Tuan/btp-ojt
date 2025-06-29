@@ -1,4 +1,3 @@
-
 sap.ui.define(
   ["sap/ui/core/mvc/Controller", "./../model/models", "./../model/formatter",  "sap/m/MessageBox",
     "sap/m/MessageToast",],
@@ -10,7 +9,7 @@ sap.ui.define(
       onInit: async function () {
         const oView = this.getView();
         const oODataModel = new sap.ui.model.odata.v4.ODataModel({
-          serviceUrl: "/ojt/", 
+          serviceUrl: "/ojt/", // r
           synchronizationMode: "None"
         });
         this.byId("itemTable").bindItems({
@@ -42,11 +41,11 @@ sap.ui.define(
         });
         oView.setModel(oODataModel, "EntityList");
         await Model.getRole(oView);
-        // Model.setInitialModel(oView);
-        // await Model.getListRole(oView);
-        // await Model.getListDepart(oView);
+        Model.setInitialModel(oView);
+        await Model.getListRole(oView);
+        await Model.getListDepart(oView);
         Model.setVisibleControl(oView);
-        // await Model.getEmployees(oView);
+        await Model.getEmployees(oView);
       },
       onPressItem: async function (oEvent) {
         const oView = this.getView();
@@ -55,7 +54,6 @@ sap.ui.define(
         try {
           const oSelEmployee = await oContext.requestObject(); 
           const oJSONModel = new sap.ui.model.json.JSONModel(oSelEmployee);
-          console.log(oJSONModel);
           this.getView().setModel(oJSONModel, "employDetail");
         } catch (err) {
         }
@@ -67,7 +65,6 @@ sap.ui.define(
         Model._setModel(oView, { isEdit: false }, "Edit");
       },
       onPressBack: function () {
-        //Button back event
         const oView = this.getView();
         oView.getModel("VisibleControl").setProperty("/", {
           list: true,
@@ -89,7 +86,7 @@ sap.ui.define(
           hireDate: "",
           dateOfBirth: "",
           salary: 0,
-          gender: "",
+          gender: false,
           role: { ID: "" },               
           department: { ID: "" }          
         };
@@ -127,95 +124,6 @@ sap.ui.define(
           }
         });
       },
-      onCreateEmployee : async function() {
-        //Create employee
-        const oView = this.getView();
-        const oModel = oView.getModel("EntityList");
-        const oCreateData = oView.getModel("createDetail").getData();
-        console.log(oModel);
-        try {
-          //Send post request
-          const oListBinding = oModel.bindList("/Employees");
-          //Create new record
-          await oListBinding.create(oCreateData);
-          sap.m.MessageToast.show("Create success");
-          //Refresh model
-          await oModel.refresh();
-          oView.getModel("VisibleControl").setProperty("/", {
-            list: true,
-            detail: false,
-            create: false
-          });
-      
-        } catch (oError) {
-          console.log(oError);
-          sap.m.MessageBox.error("Create employee fail",oError);
-        }
-      },
-      onPressUpdate: async function () {
-        const oView = this.getView();
-        const oModel = oView.getModel("EntityList");
-        const oUpdateData = oView.getModel("employDetail").getData();
-       try {
-        const sPath = `/Employees(${oUpdateData.ID})`;
-        const oEmpContext = oModel.bindContext(sPath);
-        //Check context
-        if (!oEmpContext) {
-          sap.m.MessageBox.error("Not found data");
-          return;
-        }
-        // Update data
-        const oBindingContext = await oEmpContext.getBoundContext();
-        oBindingContext.setProperty("firstName", oUpdateData.firstName);
-        oBindingContext.setProperty("lastName", oUpdateData.lastName);
-        oBindingContext.setProperty("email", oUpdateData.email);
-        oBindingContext.setProperty("hireDate", oUpdateData.hireDate);
-        oBindingContext.setProperty("performanceRating", parseInt(oUpdateData.performanceRating));
-        oBindingContext.setProperty("role_ID", oUpdateData.role.ID);
-        oBindingContext.setProperty("department_ID", oUpdateData.department.ID );
-        sap.m.MessageToast.show("update employee success");
-        //Refresh model
-        await oModel.refresh();
-       } catch(oError) {
-        sap.m.MessageBox.error("Update employee fail",oError);
-       }
-      },
-      onPressSalary: async function () {
-        const oView = this.getView();
-        const oModel = oView.getModel('EntityList');
-        const oDetailModel = oView.getModel('employDetail');
-        console.log(oDetailModel);
-        const updateID = oView.getModel('employDetail').getData().ID;
-        try {
-          const oFunction = oModel.bindContext("/calEmpSalary(...)");
-          oFunction.getParameterContext().setProperty("Employee/empID", updateID);
-          await oFunction.execute();
-          const bSuccess = await oFunction.requestObject();
-          // console.log(bSuccess);
-          if (bSuccess.value === true) {
-            await oModel.refresh();
-            //Expand to get data from role and department
-            const oContextBinding = oModel.bindContext(
-              `/Employees('${updateID}')`, 
-              null,
-              {      
-                  $expand: "role,department" 
-              }
-            );
-            await oContextBinding.getBoundContext();
-            const oNewEmployeeData = await oContextBinding.requestObject();
-            const oJSONModel = new sap.ui.model.json.JSONModel(oNewEmployeeData);
-            oView.setModel(oJSONModel, "employDetail");
-            sap.m.MessageToast.show("Update salary success");
-          } else {
-            sap.m.MessageBox.error("Update salary fail");
-          }
-      
-        } catch (err) {
-          console.error(err);
-          sap.m.MessageBox.error("Call function fail: " + err.message);
-        }
-      }
     });
   }
 );
