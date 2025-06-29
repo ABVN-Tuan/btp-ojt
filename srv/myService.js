@@ -3,10 +3,12 @@ class myService extends cds.ApplicationService{
         const { Employees } = this.entities;
         this.before(['CREATE'], Employees,this.calSalary);
         this.on('calEmpSalary',this.reCalSalary);
+        this.on('whoami', this.getRoleOnly);
         return super.init();
     }
     //update salary
     async reCalSalary(req) {
+        console.log(req.data.Employee.empID);
         let empId = req.data.Employee.empID;
         // get employee by employee ID
         const empData = await SELECT.from("Employees").where({ID: empId })
@@ -47,6 +49,14 @@ class myService extends cds.ApplicationService{
           //Calculate salary
           emp.data.salary = parseFloat((salary + 1000 * years + allowance).toFixed(2));
         }
+    };
+    async getRoleOnly(req) {
+      const roles = req.user.roles || {};
+      console.log(roles);
+      if (roles.admin === 1) {
+        return "admin";
+      }
+      
     }
   
 }

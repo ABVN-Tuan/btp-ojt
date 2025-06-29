@@ -29,70 +29,51 @@ function (JSONModel, Device) {
         setVisibleControl: function(oView){
             const visibleView = {
                 list: true,
-                detail: false
+                detail: false,
+                create: false
             };
             this._setModel(oView, visibleView , "VisibleControl" );
         },
-        getListRole: async function(oView){
+        getRole: async function(oView){
             try {
-                const oResRole = await fetch("/ojt/Roles",
+                const oResRole = await fetch("/ojt/whoami",
                 {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json" }
                 });
                 if ( oResRole.status == 200 ) {
-                    let oresRoleJson = await oResRole.json();
-                    let roleList = oresRoleJson.value;
-                    this._setModel(oView, roleList, "roleList");
-                    console.log(oView.getModel("roleList"));
-                    return roleList;
+                    let oresRoJson = await oResRole.json();
+                    let role = oresRoJson.value;
+                    this._setModel(oView, { role: role }, "role");
+                    console.log(role);
+                    return role;
                 }
             } 
             catch (error) {
                 return null;  
-            }    
+            }  
         },
-        getListDepart: async function(oView){
-            try {
-                const oResDe = await fetch("/ojt/Departments",
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json" }
-                });
-                if ( oResDe.status == 200 ) {
-                    let oresDeJson = await oResDe.json();
-                    let deList = oresDeJson.value;
-                    this._setModel(oView, deList, "departmentsList");
-                    console.log(oView.getModel("departmentsList"));
-                    return deList;
-                }
-            } 
-            catch (error) {
-                return null;  
-            }    
-        },
-        getEmployees: async function (oView) {
-            try {
-                const oRes = await fetch("/ojt/Employees?$expand=role,department",
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json" }
-                });
-                if ( oRes.status == 200 ) {
-                    let oresJson = await oRes.json();
-                    let empList = oresJson.value;
-                    this._setModel(oView, empList, "EmployeeList");
-                    return empList;
-                }
-            } 
-            catch (error) {
-                return null;  
-            }         
-        },
-
+        // setSalary: async function(oView){
+        //     try {
+        //         const oResSala = await fetch("/ojt/calEmpSalary",
+        //         {
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-Type": "application/json" }
+        //         });
+        //         if ( oResSala.status == 200 ) {
+        //             let oresSalaJson = await oResSala.json();
+        //             let role = oresRoJson.value;
+        //             this._setModel(oView, { role: role }, "role");
+        //             console.log(role);
+        //             return role;
+        //         }
+        //     } 
+        //     catch (error) {
+        //         return null;  
+        //     }  
+        // },
     };
 
 });

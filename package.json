@@ -27,11 +27,15 @@
   },
   "cds": {
     "requires": {
-      "auth": "dummy",
+      "auth": "xsuaa",
       "connectivity": true,
       "destinations": true,
       "[hybrid]": {
         "auth": "xsuaa"
+      },
+      "[production]": {
+        "auth": "xsuaa",
+        "db"  : "hana"
       }
     },
     "sql": {
