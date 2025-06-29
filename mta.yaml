@@ -8,9 +8,9 @@ modules:
   path: gen/srv
   requires:
   - name: ojtProject-auth
-  - name: ojtProject-db
   - name: ojtProject-connectivity
   - name: ojtProject-destination
+  - name: ojtProject-db
   provides:
   - name: srv-api
     properties:
@@ -20,13 +20,6 @@ modules:
     instances: 1
   build-parameters:
     builder: npm-ci
-- name: ojtProject-db-deployer
-  type: hdb
-  path: gen/db
-  requires:
-  - name: ojtProject-db
-  parameters:
-    buildpack: nodejs_buildpack
 - name: ojtProject
   type: approuter.nodejs
   path: app/router
@@ -39,6 +32,7 @@ modules:
       url: ~{srv-url}
   - name: ojtProject-auth
   - name: ojtProject-destination
+  - name: ojtProject-html5-runtime
   provides:
   - name: app-api
     properties:
@@ -48,21 +42,28 @@ modules:
     disk-quota: 256M
     keep-existing-routes: true
     memory: 256M
-- name: ojtProject-app-content
-  type: com.sap.application.content
-  path: .
+- name: ojtProject-db-deployer
+  type: hdb
+  path: gen/db
   requires:
-  - name: ojtProject-repo-host
+  - name: ojtProject-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: ojtProject-app-deployer
+  type: com.sap.application.content
+  path: gen
+  requires:
+  - name: ojtProject-html5-repo-host
     parameters:
       content-target: true
   build-parameters:
-    build-result: resources
+    build-result: app/
     requires:
     - artifacts:
       - project1.zip
-      name: project1
-      target-path: resources/
-- name: project1
+      name: ojtProjectproject1
+      target-path: app/
+- name: ojtProjectproject1
   type: html5
   path: app/project1
   build-parameters:
@@ -72,6 +73,36 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+- name: ojtProject-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: ojtProject-destination
+    parameters:
+      content-target: true
+  - name: ojtProject-html5-repo-host
+    parameters:
+      service-key:
+        name: ojtProject-html5-repo-host-key
+  - name: ojtProject-auth
+    parameters:
+      service-key:
+        name: ojtProject-auth-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: ojtProject_html_repo_host
+          ServiceInstanceName: ojtProject-html5-service
+          ServiceKeyName: ojtProject-html5-repo-host-key
+          sap.cloud.service: ojtProject
+        - Authentication: OAuth2UserTokenExchange
+          Name: ojtProject_uaa
+          ServiceInstanceName: ojtProject-xsuaa-service
+          ServiceKeyName: ojtProject-auth-key
+          sap.cloud.service: ojtProject
+        existing_destinations_policy: update
+  build-parameters:
+    no-source: true
 resources:
 - name: ojtProject-auth
   type: org.cloudfoundry.managed-service
@@ -81,12 +112,8 @@ resources:
       xsappname: ojtProject-${org}-${space}
     path: ./xs-security.json
     service: xsuaa
+    service-name: ojtProject-xsuaa-service
     service-plan: application
-- name: ojtProject-db
-  type: com.sap.xs.hdi-container
-  parameters:
-    service: hana
-    service-plan: hdi-shared
 - name: ojtProject-connectivity
   type: org.cloudfoundry.managed-service
   parameters:
@@ -96,24 +123,50 @@ resources:
   type: org.cloudfoundry.managed-service
   parameters:
     config:
-      HTML5Runtime_enabled: false
+      HTML5Runtime_enabled: true
       init_data:
         instance:
           destinations:
+          - Authentication: NoAuthentication
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
+            Name: srv-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: ~{srv-api/srv-url}
           - Authentication: NoAuthentication
             Name: ui5
             ProxyType: Internet
             Type: HTTP
             URL: https://ui5.sap.com
+          - Authentication: NoAuthentication
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
+            Name: ojtProject-srv-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: ~{srv-api/srv-url}
           existing_destinations_policy: update
     service: destination
     service-plan: lite
-- name: ojtProject-repo-host
+  requires:
+  - name: srv-api
+- name: ojtProject-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: ojtProject-html5-repo-host
   type: org.cloudfoundry.managed-service
   parameters:
     service: html5-apps-repo
     service-name: ojtProject-html5-service
     service-plan: app-host
+- name: ojtProject-html5-runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-runtime
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true

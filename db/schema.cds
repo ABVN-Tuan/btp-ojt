@@ -1,5 +1,5 @@
 namespace ojt;
-using { managed, Currency } from '@sap/cds/common';
+using { managed } from '@sap/cds/common';
 //Roles
 entity Roles : managed{
     key ID: UUID;
@@ -24,7 +24,6 @@ entity Employees : managed {
   gender     : String;
   role: Association to Roles;
   department : Association to Departments;
-  currency : Currency;
   performanceRating : Integer @assert.range: [1, 5];
     
 }
@@ -34,7 +33,7 @@ entity leaveRequest : managed {
     key ID: UUID;
     employee: Association to Employees;
     startDate: Date;
-    endData: Date;
+    endDate: Date;
     status: String(20);
     reason: String(50);
 }

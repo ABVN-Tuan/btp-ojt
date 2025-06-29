@@ -30,7 +30,9 @@ function (JSONModel, Device) {
             const visibleView = {
                 list: true,
                 detail: false,
-                create: false
+                create: false,
+                listLeave: false,
+                createLeave: false,
             };
             this._setModel(oView, visibleView , "VisibleControl" );
         },
@@ -54,26 +56,6 @@ function (JSONModel, Device) {
                 return null;  
             }  
         },
-        // setSalary: async function(oView){
-        //     try {
-        //         const oResSala = await fetch("/ojt/calEmpSalary",
-        //         {
-        //             method: "POST",
-        //             headers: {
-        //                 "Content-Type": "application/json" }
-        //         });
-        //         if ( oResSala.status == 200 ) {
-        //             let oresSalaJson = await oResSala.json();
-        //             let role = oresRoJson.value;
-        //             this._setModel(oView, { role: role }, "role");
-        //             console.log(role);
-        //             return role;
-        //         }
-        //     } 
-        //     catch (error) {
-        //         return null;  
-        //     }  
-        // },
     };
 
 });
