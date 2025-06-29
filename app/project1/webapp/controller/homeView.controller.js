@@ -42,11 +42,7 @@ sap.ui.define(
         });
         oView.setModel(oODataModel, "EntityList");
         await Model.getRole(oView);
-        // Model.setInitialModel(oView);
-        // await Model.getListRole(oView);
-        // await Model.getListDepart(oView);
         Model.setVisibleControl(oView);
-        // await Model.getEmployees(oView);
       },
       onPressItem: async function (oEvent) {
         const oView = this.getView();
@@ -62,7 +58,9 @@ sap.ui.define(
         oView.getModel("VisibleControl").setProperty("/", {
           list: false,
           detail: true,
-          create: false
+          create: false,
+          listLeave: false,
+          createLeave:false,
         });
         Model._setModel(oView, { isEdit: false }, "Edit");
       },
@@ -73,6 +71,22 @@ sap.ui.define(
           list: true,
           detail: false,
           create: false,
+          listLeave: false,
+          createLeave:false,
+        });
+      },
+      onPressLeave: function(){
+        const oView = this.getView();
+        const oODataModel = new sap.ui.model.odata.v4.ODataModel({
+          serviceUrl: "/ojt/", 
+          synchronizationMode: "None"
+        });
+        oView.getModel("VisibleControl").setProperty("/", {
+          listLeave: true,
+          createLeave:false,
+          list: false,
+          detail: false,
+          create: false,
         });
       },
       onPressEdit: function () {
@@ -80,6 +94,33 @@ sap.ui.define(
         const oEditModel = oView.getModel("Edit");
         const bIsEdit = oEditModel.getProperty("/isEdit");
         oEditModel.setProperty("/isEdit", !bIsEdit);
+      },
+      onPressCreList: function() {
+        var oStatusData = {
+          statuses: [
+              { key: "PENDING", text: "Pending" },
+              { key: "APPROVED", text: "Approved" },
+              { key: "REJECTED", text: "Rejected" }
+          ]
+      };
+      var oStatusModel = new sap.ui.model.json.JSONModel(oStatusData);
+      this.getView().setModel(oStatusModel, "statusModel");
+        const oEmptyLeave = {
+          status: "Pending",
+          reason: "",
+          endDate: "",
+          startDate: "",
+          employee: { ID: "" },                  
+        };
+        const oView = this.getView();
+        oView.setModel(new sap.ui.model.json.JSONModel(oEmptyLeave),"createLeaveDetail");
+        oView.getModel("VisibleControl").setProperty("/", {
+          list: false,
+          detail: false,
+          create: false,
+          listLeave: false,
+          createLeave:true
+        });
       },
       onPressCreEmp: function () {
         const oEmptyEmp = {
@@ -99,6 +140,8 @@ sap.ui.define(
           list: false,
           detail: false,
           create: true,
+          listLeave: false,
+          createLeave:false,
         });
       },
       onDeleteEmployee: function (oEvent) {
@@ -144,13 +187,42 @@ sap.ui.define(
           oView.getModel("VisibleControl").setProperty("/", {
             list: true,
             detail: false,
-            create: false
+            create: false,
+            listLeave: false,
+            createLeave:false,
           });
       
         } catch (oError) {
           console.log(oError);
           sap.m.MessageBox.error("Create employee fail",oError);
         }
+      },
+      onCreateLeave: async function() {
+                //Create employee
+                const oView = this.getView();
+                const oModel = oView.getModel("EntityList");
+                const oCreateData = oView.getModel("createLeaveDetail").getData();
+                console.log(oModel);
+                try {
+                  //Send post request
+                  const oListBinding = oModel.bindList("/leaveRequest");
+                  //Create new record
+                  await oListBinding.create(oCreateData);
+                  sap.m.MessageToast.show("Create success");
+                  //Refresh model
+                  await oModel.refresh();
+                  oView.getModel("VisibleControl").setProperty("/", {
+                    list: false,
+                    detail: false,
+                    create: false,
+                    listLeave: true,
+                    createLeave:false,
+                  });
+              
+                } catch (oError) {
+                  console.log(oError);
+                  sap.m.MessageBox.error("Create leave request fail",oError);
+                }
       },
       onPressUpdate: async function () {
         const oView = this.getView();

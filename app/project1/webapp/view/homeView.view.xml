@@ -19,6 +19,9 @@
             <core:Fragment fragmentName="project1.view.fragment.list" type="XML"/>
             <core:Fragment fragmentName="project1.view.fragment.detail" type="XML"/>
             <core:Fragment fragmentName="project1.view.fragment.create" type="XML"/>
+            <core:Fragment fragmentName="project1.view.fragment.listLeave" type="XML"/>
+            <core:Fragment fragmentName="project1.view.fragment.createLeave" type="XML"/>
+            
         </content>
     </Page>
 </mvc:View>

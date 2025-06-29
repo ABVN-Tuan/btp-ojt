@@ -8,24 +8,6 @@
     <VBox id = "listContainer" class = "listContainer" visible="{VisibleControl>/list}">
         <Title id = "listTitle" class = "listTitle" text = "{i18n>empListTitle}"></Title>
         <VBox id = "vtable" class = "table">
-            <!-- <fb:FilterBar id = "filterBar" search=".onFilterSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad" useToolbar="false">
-            <fb:filterGroupItems>
-            <fb:FilterGroupItem id = "filterGrItem1" name = "Department" label="Department" groupName="gr1" visibleInFilterBar="true">
-                <fb:control>
-                    <MultiComboBox id = "depCbb" name = "Department" selectionChange=".onCbbSelection" items = "{departmentsList>/}">
-                        <core:Item id="Item" key="{departmentsList>id}" text="{departmentsList>name}" />
-                    </MultiComboBox>             
-                </fb:control>
-            </fb:FilterGroupItem>
-            <fb:FilterGroupItem id = "filterGrItem2" name = "Role" label="Role" groupName="gr2" visibleInFilterBar="true">
-                <fb:control>
-                    <MultiComboBox id = "roleCbb" name = "Role" selectionChange=".onCbbSelection" items = "{roleList>/}">
-                        <core:Item id="roleItem" key="{roleList>id}" text="{roleList>name}" />
-                    </MultiComboBox>             
-                </fb:control>
-            </fb:FilterGroupItem>
-            </fb:filterGroupItems>
-        </fb:FilterBar> -->
             <Table id = "itemTable" rememberSelections="false" selectionChange=".onItemSelection" mode = "SingleSelect" items ="{path: 'EntityList>/Employees'}" 
             itemPress=".onPressItem" fixedLayout="false" growingThreshold="100" updateFinished="onUpdateStatusTb" growing="true">
                 <columns>

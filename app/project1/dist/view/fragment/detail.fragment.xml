@@ -12,7 +12,7 @@
     <VBox id="detailContentID" class="detailContent" width="80%">
         <VBox id="formID" class="form" gap="1.5rem" >
             <HBox id="nameFirstID" alignItems="Center">
-                <VBox id="nameFirstLabelID" width="10%">
+                <VBox id="nameFirstLabelID" width="15%">
                     <Label id="nameFirstLabel" text="{i18n>nameFirst}" />
                 </VBox>
                 <VBox id="nameFirstTextID" width="50%">
@@ -23,7 +23,7 @@
                 </VBox>
             </HBox>
             <HBox id="nameLastID" alignItems="Center">
-                <VBox id="nameLastLabelID" width="10%">
+                <VBox id="nameLastLabelID" width="15%">
                     <Label id="nameLastLabel" text="{i18n>nameLast}" />
                 </VBox>
                 <VBox id="nameLastTextID" width="50%">
@@ -34,7 +34,7 @@
                 </VBox>
             </HBox>
             <HBox id="emailID" alignItems="Center">
-                <VBox id="emailLabelID" width="10%">
+                <VBox id="emailLabelID" width="15%">
                     <Label id="emailLabel" text="{i18n>emailText}" />
                 </VBox>
                 <VBox id="emailTextID" width="50%">
@@ -45,7 +45,7 @@
                 </VBox>
             </HBox>
             <HBox id="hideDateID" alignItems="Center">
-                <VBox id="hireDateLabelID" width="10%">
+                <VBox id="hireDateLabelID" width="15%">
                     <Label id="hireDateLabel" text="{i18n>hireDate}" />
                 </VBox>
                 <VBox id="hireDateTextID" width="50%">
@@ -55,34 +55,45 @@
                         enabled="{Edit>/isEdit}" />
                 </VBox>
             </HBox>
+            <HBox id="perID" alignItems="Center">
+                <VBox id="perLabelID" width="15%">
+                    <Label id="perLabel" text="{i18n>placeholderPer}" />
+                </VBox>
+                <VBox id="perTextID" width="50%">
+                    <Input id="perInput" type="Text"
+                        placeholder="{i18n>placeholderPer}"
+                        value="{employDetail>/performanceRating}"
+                        enabled="{Edit>/isEdit}" />
+                </VBox>
+            </HBox>
             <HBox id="roleID" alignItems="Center">
-                <VBox id="roleLabelID" width="10%">
+                <VBox id="roleLabelID" width="15%">
                     <Label id="roleLabel" text="{i18n>role}" />
                 </VBox>
                 <VBox id="roleTextID" width="50%">
-                    <ComboBox id="cbbRole" items="{roleList>/}" width="100%"
-                    placeholder="{i18n>placeholderRole}" selectedKey="{employDetail>/role/name}">
-                    <core:Item id="itemRole" key="{roleList>name}" text="{roleList>name}" />
+                    <ComboBox id="cbbRole" items="{path: 'EntityList>/Roles'}" width="100%"
+                    placeholder="{i18n>placeholderRole}" selectedKey="{employDetail>/role/ID}">
+                    <core:Item id="itemRole" key="{EntityList>ID}" text="{EntityList>name}" />
                 </ComboBox>
                 </VBox>
             </HBox>
             <HBox id="departmentID" alignItems="Center">
-                <VBox id="departmentLabelID" width="10%">
+                <VBox id="departmentLabelID" width="15%">
                     <Label id="departmentLabel" text="{i18n>department}" />
                 </VBox>
                 <VBox id="departmentTextID" width="50%">
-                <ComboBox id="cbbDepart" items="{departmentsList>/}" width="100%"
-                placeholder="{i18n>placeholderDepartment}" selectedKey="{employDetail>/department/name}">
-                <core:Item id="itemDepart" key="{departmentsList>name}" text="{departmentsList>name}" />
+                <ComboBox id="cbbDepart" items="{path: 'EntityList>/Departments'}" width="100%"
+                placeholder="{i18n>placeholderDepartment}" selectedKey="{employDetail>/department/ID}">
+                <core:Item id="itemDepart" key="{EntityList>ID}" text="{EntityList>name}" />
             </ComboBox>
                 </VBox>
             </HBox>
             <HBox id="salaryID" alignItems="Center">
-                <VBox id="salaryLabelID" width="10%">
+                <VBox id="salaryLabelID" width="15%">
                     <Label id="salaryLabel" text="{i18n>salary}" />
                 </VBox>
                 <VBox id="salaryTextID" width="50%">
-                    <Text id="salaryInput" text = "{employeeDetail>/salary}"/>
+                    <Text id="salaryInput" text="{employDetail>/salary}"/>
                 </VBox>
             </HBox>
             <Toolbar id="ToolbarList" >

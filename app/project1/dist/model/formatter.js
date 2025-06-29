@@ -1,2 +1,2 @@
-sap.ui.define([],()=>{"use strict";return{formatDate(n){if(n&&n!=""){let r=new Date(n+"T00:00:00");let e={year:"numeric",month:"long",day:"numeric"};return r.toLocaleString("en-US",e)}return""},formatCurrency:function(n,r){if(n==null||isNaN(n))return"";return new Intl.NumberFormat(undefined,{style:"currency",currency:r||"USD",minimumFractionDigits:0}).format(n)},isAdmin:function(n){return n==="admin"}}});
+sap.ui.define([],()=>{"use strict";return{isAdmin:function(i){return i==="admin"}}});
 //# sourceMappingURL=formatter.js.map

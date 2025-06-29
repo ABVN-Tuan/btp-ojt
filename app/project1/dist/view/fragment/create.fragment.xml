@@ -10,73 +10,73 @@
             <VBox id="creFormID" class="form" gap="1.5rem">
                 <HBox id="creNameFirstID" alignItems="Center">
                     <VBox id="creNameFirstLabelID" width="10%">
-                        <Label id="creNameFirstLabel" text="{i18n>nameFirst}" />
+                        <Label id="creNameFirstLabel" text="{i18n>nameFirst}" required="true" />
                     </VBox>
                     <VBox id="creNameFirstTextID" width="50%">
-                        <Input id="creNameFirstInput" type="Text" placeholder="{i18n>placeholderFirstName}" value="{employeeDetail>/firstName}" enabled="{Edit>/isEdit}" />
+                        <Input id="creNameFirstInput" type="Text" placeholder="{i18n>placeholderFirstName}" value="{createDetail>/firstName}" />
                     </VBox>
                 </HBox>
                 <HBox id="creNameLastID" alignItems="Center">
                     <VBox id="creNameLastLabelID" width="10%">
-                        <Label id="creNameLastLabel" text="{i18n>nameLast}" />
+                        <Label id="creNameLastLabel" text="{i18n>nameLast}" required="true" />
                     </VBox>
                     <VBox id="creNameLastTextID" width="50%">
-                        <Input id="creNameLastInput" type="Text" placeholder="{i18n>placeholderLastName}" value="{employeeDetail>/lastName}" enabled="{Edit>/isEdit}" />
+                        <Input id="creNameLastInput" type="Text" placeholder="{i18n>placeholderLastName}" value="{createDetail>/lastName}" />
                     </VBox>
                 </HBox>
                 <HBox id="creEmailID" alignItems="Center">
                     <VBox id="creEmailLabelID" width="10%">
-                        <Label id="creEmailLabel" text="{i18n>emailText}" />
+                        <Label id="creEmailLabel" text="{i18n>emailText}" required="true" />
                     </VBox>
                     <VBox id="creEmailTextID" width="50%">
-                        <Input id="creEmailInput" type="Text" placeholder="{i18n>placeholderEmail}" value="{employeeDetail>/email}" enabled="{Edit>/isEdit}" />
+                        <Input id="creEmailInput" type="Text" placeholder="{i18n>placeholderEmail}" value="{createDetail>/email}" />
                     </VBox>
                 </HBox>
                 <HBox id="creHideDateID" alignItems="Center">
                     <VBox id="creHireDateLabelID" width="10%">
-                        <Label id="creHireDateLabel" text="{i18n>hireDate}" />
+                        <Label id="creHireDateLabel" text="{i18n>hireDate}" required="true"/>
                     </VBox>
                     <VBox id="creHireDateTextID" width="50%">
-                        <Input id="creHireDateInput" type="Text" placeholder="{i18n>placeholderHireDate}" value="{employeeDetail>/hireDate}" enabled="{Edit>/isEdit}" />
+                        <Input id="creHireDateInput" type="Text" placeholder="{i18n>placeholderHireDate}" value="{createDetail>/hireDate}"/>
                     </VBox>
                 </HBox>
                 <HBox id="creDob" alignItems="Center">
                     <VBox id="creDobLabelID" width="10%">
-                        <Label id="creDobLabel" text="{i18n>DobText}" />
+                        <Label id="creDobLabel" text="{i18n>DobText}" required="true"  />
                     </VBox>
                     <VBox id="creHDobTextID" width="50%">
-                        <Input id="creDobInput" type="Text" placeholder="{i18n>DobText}" value="{employeeDetail>/hireDate}" enabled="{Edit>/isEdit}" />
+                        <Input id="creDobInput" type="Text" placeholder="{i18n>DobText}" value="{createDetail>/dateOfBirth}" />
                     </VBox>
                 </HBox>
                 <HBox id="creGen" alignItems="Center">
                     <VBox id="creGenLabelID" width="10%">
-                        <Label id="creGenLabel" text="{i18n>genderText}" />
+                        <Label id="creGenLabel" text="{i18n>genderText}" required="true" />
                     </VBox>
                     <VBox id="creGenTextID" width="50%">
-                        <Input id="creGenInput" type="Text" placeholder="{i18n>genderText}" value="{employeeDetail>/hireDate}" enabled="{Edit>/isEdit}" />
+                        <Input id="creGenInput" type="Text" placeholder="{i18n>genderText}" value="{createDetail>/gender}"/>
                     </VBox>
                 </HBox>
                 <HBox id="creRoleID" alignItems="Center">
                     <VBox id="creRoleLabelID" width="10%">
-                        <Label id="creRoleLabel" text="{i18n>role}" />
+                        <Label id="creRoleLabel" text="{i18n>role}" required="true" />
                     </VBox>
                     <VBox id="creRoleTextID" width="50%">
-                        <ComboBox id="creCbbRole" items="{roleList>/}" width="100%" placeholder="{i18n>placeholderRole}" selectedKey="{employeeDetail>/role/name}">
-                            <core:Item id="creItemRole" key="{roleList>name}" text="{roleList>name}" />
+                        <ComboBox id="creCbbRole" items="{path: 'EntityList>/Roles'}" width="100%" placeholder="{i18n>placeholderRole}" selectedKey="{createDetail>/role/ID}" required="true">
+                            <core:Item id="creItemRole" key="{EntityList>ID}" text="{EntityList>name}" />
                         </ComboBox>
                     </VBox>
                 </HBox>
                 <HBox id="creDepartmentID" alignItems="Center">
                     <VBox id="creDepartmentLabelID" width="10%">
-                        <Label id="creDepartmentLabel" text="{i18n>department}" />
+                        <Label id="creDepartmentLabel" text="{i18n>department}" required="true" />
                     </VBox>
                     <VBox id="creDepartmentTextID" width="50%">
-                        <ComboBox id="creCbbDepart" items="{departmentsList>/}" width="100%" placeholder="{i18n>placeholderDepartment}" selectedKey="{employeeDetail>/department/name}">
-                            <core:Item id="creItemDepart" key="{departmentsList>name}" text="{departmentsList>name}" />
+                        <ComboBox id="creCbbDepart" items="{path: 'EntityList>/Departments'}" width="100%" placeholder="{i18n>placeholderDepartment}" selectedKey="{createDetail>/department/ID}" >
+                            <core:Item id="creItemDepart" key="{EntityList>ID}" text="{EntityList>name}" />
                         </ComboBox>
                     </VBox>
                 </HBox>
-                <Button id="creaetButton" icon="sap-icon://create" type="Transparent" press=".onCreateEmployee" />
+                <Button id="creaetButton" icon="sap-icon://create" type="Transparent" press=".onCreateEmployee" text = "Create employee" />
             </VBox>
         </VBox>
     </VBox>
