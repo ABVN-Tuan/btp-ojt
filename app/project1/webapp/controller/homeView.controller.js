@@ -9,7 +9,7 @@ sap.ui.define(
       formatter: formatter,
       onInit: async function () {
         const oView = this.getView();
-        const oODataModel = new sap.ui.model.odata.v4.ODataModel({
+        const oODataModel = await new sap.ui.model.odata.v4.ODataModel({
           serviceUrl: "/ojt/", 
           synchronizationMode: "None"
         });
@@ -40,9 +40,10 @@ sap.ui.define(
             ]
           })
         });
-        oView.setModel(oODataModel, "EntityList");
+        console.log('call model')
+        await oView.setModel(oODataModel, "EntityList");
         await Model.getRole(oView);
-        Model.setVisibleControl(oView);
+        await Model.setVisibleControl(oView);
       },
       onPressItem: async function (oEvent) {
         const oView = this.getView();

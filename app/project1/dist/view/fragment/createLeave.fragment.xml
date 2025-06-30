@@ -34,16 +34,6 @@
                         <Input id="creEndInput" type="Text" placeholder="{i18n>end}" value="{createLeaveDetail>/endDate}" />
                     </VBox>
                 </HBox>
-                <!-- <HBox id="creStatusID" alignItems="Center">
-                    <VBox id="creStatusLabelID" width="10%">
-                        <Label id="creStatusLabel" text="{i18n>hireDate}" required="true"/>
-                    </VBox>
-                    <VBox id="creStatusTextID" width="50%">
-                        <ComboBox id="creCbbStatus" items="{path: 'statusModel>/statuses'}" width="100%" placeholder="{i18n>status}" selectedKey="{createLeaveDetail>/status}" required="true">
-                            <core:Item id="creItemStatus" key="{statusModel>key}" text="{statusModel>text}" />
-                        </ComboBox>
-                    </VBox>
-                </HBox> -->
                 <HBox id="creReasonID" alignItems="Center">
                     <VBox id="creReasonLabelID" width="10%">
                         <Label id="creReasonLabel" text="{i18n>reason}" required="true" />
@@ -52,7 +42,7 @@
                         <Input id="creReasonInput" type="Text" placeholder="{i18n>reason}" value="{createLeaveDetail>/reason}" />
                     </VBox>
                 </HBox>
-                <Button id="creaetLeaveButton" icon="sap-icon://create" type="Transparent" press=".onCreateLeave" text = "Create employee" />
+                <Button id="creaetLeaveButton" icon="sap-icon://create" type="Transparent" press=".onCreateLeave" text = "Create employee" visible="{ path: 'role>/role', formatter: '.formatter.isAdmin' }" />
             </VBox>
         </VBox>
     </VBox>

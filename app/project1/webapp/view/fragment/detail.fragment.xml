@@ -99,8 +99,8 @@
             <Toolbar id="ToolbarList" >
                 <content>
                     <ToolbarSpacer id="ToolbarSpacerList" />
-                    <Button id="btnSaveUpdate" type="Default" text="Update Information" press="onPressUpdate" />
-                    <Button id="btnUpdateSalary" type="Default" text="Update salary" press="onPressSalary" />
+                    <Button id="btnSaveUpdate" type="Default" text="Update Information" press="onPressUpdate" visible="{ path: 'role>/role', formatter: '.formatter.isAdmin' }"/>
+                    <Button id="btnUpdateSalary" type="Default" text="Update salary" press="onPressSalary" visible="{ path: 'role>/role', formatter: '.formatter.isAdmin' }" />
                 </content>
             </Toolbar>
         </VBox>

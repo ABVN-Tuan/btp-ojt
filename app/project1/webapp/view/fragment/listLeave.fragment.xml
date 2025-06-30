@@ -44,7 +44,7 @@
                     </ColumnListItem>
                 </items>
             </Table>
-            <Button id="btncreateLeave" type="Default" text="Create leave request" press="onPressCreList" />
+            <Button id="btncreateLeave" type="Default" text="Create leave request" press="onPressCreList" visible="{ path: 'role>/role', formatter: '.formatter.isAdmin' }"/>
         </VBox>
     </VBox>
 </core:FragmentDefinition>
