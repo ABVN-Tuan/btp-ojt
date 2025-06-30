@@ -8,8 +8,8 @@
     <VBox id = "listLeaveContainer" class = "listContainer" visible="{VisibleControl>/listLeave}">
         <Title id = "listLeaveTitle" class = "listTitle" text = "{i18n>ListTitle}"></Title>
         <VBox id = "table" class = "table">
-            <Table id = "itemLeaveTable" rememberSelections="false" selectionChange=".onItemSelection" mode = "SingleSelect" items ="{path: 'EntityList>/leaveRequest'}" 
-            itemPress=".onPressItem" fixedLayout="false" growingThreshold="100" updateFinished="onUpdateStatusTb" growing="true">
+            <Table id = "itemLeaveTable" rememberSelections="false" selectionChange=".onItemSelection" items ="{path: 'EntityList>/leaveRequest'}" 
+            itemPress=".onPressLeaveItem" fixedLayout="false" growingThreshold="100" updateFinished="onUpdateStatusTb" growing="true">
                 <columns>
                     <Column id="colEmp" width="30%" hAlign="Left">
                         <Label id="lEmp" text="{i18n>employee}" textAlign="Center" width="100%" />
@@ -33,7 +33,7 @@
                 <items>
                     <ColumnListItem id="leaveListItem" vAlign="Middle" type="Active">
                         <cells>
-                            <Text id="txtEmp" class="textTable" text="{EntityList>employee_firstName} {EntityList>employee_lastName}" textAlign="Center" />
+                            <Text id="txtEmp" class="textTable" text="{EntityList>employee/firstName} {EntityList>employee/lastName}" textAlign="Center" />
                             <Text id="txtStart" class="textTable" text="{EntityList>startDate}" textAlign="Center" />
                             <Text id="txtEnd" class="textTable" text="{EntityList>endDate}" wrapping="false" />
                             <Text id="txtStatus" class="textTable" text="{EntityList>status}" textAlign="Center" />

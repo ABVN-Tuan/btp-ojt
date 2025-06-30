@@ -8,7 +8,7 @@
     <VBox id = "listContainer" class = "listContainer" visible="{VisibleControl>/list}">
         <Title id = "listTitle" class = "listTitle" text = "{i18n>empListTitle}"></Title>
         <VBox id = "vtable" class = "table">
-            <Table id = "itemTable" rememberSelections="false" selectionChange=".onItemSelection" mode = "SingleSelect" items ="{path: 'EntityList>/Employees'}" 
+            <Table id = "itemTable" rememberSelections="false" selectionChange=".onItemSelection"  items ="{path: 'EntityList>/Employees'}" 
             itemPress=".onPressItem" fixedLayout="false" growingThreshold="100" updateFinished="onUpdateStatusTb" growing="true">
                 <columns>
                     <Column id="colName" width="30%" hAlign="Left">

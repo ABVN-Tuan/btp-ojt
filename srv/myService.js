@@ -8,13 +8,10 @@ class myService extends cds.ApplicationService{
     }
     //update salary
     async reCalSalary(req) {
-        console.log(req.data.Employee.empID);
-        let empId = req.data.Employee.empID;
-        // get employee by employee ID
-        const empData = await SELECT.from("Employees").where({ID: empId })
-                                    .columns('hireDate','role_ID','salary','performanceRating');
-        let roleId = empData[0].role_ID;
-        let performanceRating = empData[0].performanceRating;
+        console.log('reddata',req.data.Employee);
+        let empData = req.data.Employee;
+        let roleId = empData.role_ID;
+        let performanceRating = empData.performanceRating;
         // get roles data
         const rolesData = await SELECT.from("Roles").where({ID: roleId })
                                     .columns('baseSalary','allowance');
@@ -22,15 +19,12 @@ class myService extends cds.ApplicationService{
         //calculate working years                         
         let salary = rolesData[0].baseSalary;    
         let allowance = rolesData[0].allowance;               
-        if (empData[0].hireDate || salary == null){
-          const hireDate = new Date(empData[0].hireDate);
+        if (empData.hireDate || salary == null){
+          const hireDate = new Date(empData.hireDate);
           const years = Math.floor((now - hireDate) / (1000 * 60 * 60 * 24 * 365));
-          empData[0].salary = parseFloat((salary + 1000 * years + allowance + 500 * performanceRating).toFixed(2));
+          empData.salary = parseFloat((salary + 1000 * years + allowance + 500 * performanceRating).toFixed(2));
           //Update salary 
-          await UPDATE('Employees')
-          .set({ salary: empData[0].salary })
-          .where({ ID: empId });
-          return true;        
+          return empData.salary;        
         }
     }
     //Calculate salary when post employee

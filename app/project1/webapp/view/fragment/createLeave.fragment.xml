@@ -23,7 +23,7 @@
                         <Label id="creStartLabel" text="{i18n>start}" required="true" />
                     </VBox>
                     <VBox id="creStartextID" width="50%">
-                        <Input id="creStartInput" type="Text" placeholder="{i18n>start}" value="{createLeaveDetail>/startDate}" />
+                        <DatePicker id="creStartInput" placeholder="{i18n>start}" value="{createLeaveDetail>/startDate}" valueFormat="yyyy-MM-dd"/>
                     </VBox>
                 </HBox>
                 <HBox id="creEndID" alignItems="Center">
@@ -31,7 +31,7 @@
                         <Label id="creEndLabel" text="{i18n>end}" required="true" />
                     </VBox>
                     <VBox id="creEndTextID" width="50%">
-                        <Input id="creEndInput" type="Text" placeholder="{i18n>end}" value="{createLeaveDetail>/endDate}" />
+                        <DatePicker id="creEndInput" placeholder="{i18n>end}" value="{createLeaveDetail>/endDate}" valueFormat="yyyy-MM-dd" />
                     </VBox>
                 </HBox>
                 <HBox id="creReasonID" alignItems="Center">
