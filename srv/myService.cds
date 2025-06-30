@@ -14,30 +14,35 @@ service myService @(required: 'authenticated-user'){
 // Grand authorization for entity Employees by role
 annotate myService.Employees with @(restrict:[
     {grant: ['READ'],
-    to: ['employee']},
+    to: ['employee','']},
     {grant: ['READ','UPDATE','CREATE','DELETE'],
-    to: ['admin','']},
+    to: ['admin']},
 ]) ;
 
 //Grand authorization for entity Roles by role
 annotate myService.Roles with @(restrict:[
     {grant: ['READ'],
-    to: ['employee']},
+    to: ['employee','']},
     {grant: ['READ','UPDATE','CREATE','DELETE'],
     to: ['admin']}
 ]) ;
 
-//Grand authorization for entity Departments by role
+// Grand authorization for entity Departments by role
 annotate myService.Departments with @(restrict:[
     {grant: ['READ'],
-    to: ['employee']},
+    to: ['employee','']},
     {grant: ['READ','UPDATE','CREATE','DELETE'],
     to: ['admin']}
 ]) ;
 
-//Grand authorization for entity leaveRequest by role
+// Grand authorization for entity leaveRequest by role
 annotate myService.leaveRequest with @(restrict:[
     {grant: ['READ','UPDATE','CREATE','DELETE'],
     to: ['admin']}
 ]) ;
+annotate myService.whoami with @(restrict:[
+    {grant: ['READ','UPDATE','CREATE','DELETE'],
+    to: ['admin','employee','']}
+]) ;
+
 

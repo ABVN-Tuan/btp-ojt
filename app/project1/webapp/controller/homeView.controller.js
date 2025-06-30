@@ -42,7 +42,8 @@ sap.ui.define(
         });
         console.log('call model')
         await oView.setModel(oODataModel, "EntityList");
-        await Model.getRole(oView);
+        const orole = await Model.getRole(oView);
+        console.log(orole);
         await Model.setVisibleControl(oView);
       },
       onPressItem: async function (oEvent) {

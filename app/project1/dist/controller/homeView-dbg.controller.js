@@ -13,10 +13,6 @@ sap.ui.define(
           serviceUrl: "/ojt/", 
           synchronizationMode: "None"
         });
-        console.log('call model')
-        await oView.setModel(oODataModel, "EntityList");
-        await Model.getRole(oView);
-        await Model.setVisibleControl(oView);
         this.byId("itemTable").bindItems({
           path: "EntityList>/Employees",
           parameters: {
@@ -44,6 +40,11 @@ sap.ui.define(
             ]
           })
         });
+        console.log('call model')
+        await oView.setModel(oODataModel, "EntityList");
+        const orole = await Model.getRole(oView);
+        console.log(orole);
+        await Model.setVisibleControl(oView);
       },
       onPressItem: async function (oEvent) {
         const oView = this.getView();

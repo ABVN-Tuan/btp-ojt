@@ -53,6 +53,7 @@ class myService extends cds.ApplicationService{
     async getRoleOnly(req) {
       const roles = req.user.roles || {};
       console.log(roles);
+      console.log(roles);
       if (roles.admin === 1) {
         return "admin";
       }
