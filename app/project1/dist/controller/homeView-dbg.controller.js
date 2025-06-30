@@ -49,15 +49,13 @@ sap.ui.define(
         this.byId("itemLeaveTable").bindItems({
           path: "EntityList>/leaveRequest",
           parameters: {
-            $expand: "employee",
+            $expand: "employee"
           },
           template: new sap.m.ColumnListItem({
             id:"leaveListItem",
             type: "Active",
             cells: [
-              new sap.m.Text({
-                text: "{EntityList>employee/firstName} {EntityList>employee/lastName}",
-              }),
+              new sap.m.Text({ text: "{EntityList>employee/firstName} {EntityList>employee/lastName}" }),
               new sap.m.Text({ text: "{EntityList>startDate}" }),
               new sap.m.Text({ text: "{EntityList>endDate}" }),
               new sap.m.Text({ text: "{EntityList>status}" }),
@@ -333,10 +331,10 @@ sap.ui.define(
           await oFunction.ready();
           const oParamContext = oFunction.getParameterContext();
           console.log(updateData);
-          oParamContext.setProperty("Employee/ID", updateData.ID);
-          oParamContext.setProperty("Employee/hireDate", updateData.hireDate);
-          oParamContext.setProperty("Employee/role_ID", updateData.role.ID);
-          oParamContext.setProperty(
+          await oParamContext.setProperty("Employee/ID", updateData.ID);
+          await oParamContext.setProperty("Employee/hireDate", updateData.hireDate);
+          await oParamContext.setProperty("Employee/role_ID", updateData.role.ID);
+          await oParamContext.setProperty(
             "Employee/performanceRating",
             parseInt(updateData.performanceRating, 10)
           );

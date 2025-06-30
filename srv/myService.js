@@ -21,7 +21,8 @@ class myService extends cds.ApplicationService{
         let allowance = rolesData[0].allowance;               
         if (empData.hireDate || salary == null){
           const hireDate = new Date(empData.hireDate);
-          const years = Math.floor((now - hireDate) / (1000 * 60 * 60 * 24 * 365));
+          let years = Math.floor((now - hireDate) / (1000 * 60 * 60 * 24 * 365));
+          if (years <= 0){ years = 0; }
           empData.salary = parseFloat((salary + 1000 * years + allowance + 500 * performanceRating).toFixed(2));
           //Update salary 
           return empData.salary;        

@@ -49,9 +49,10 @@
                     <Label id="hireDateLabel" text="{i18n>hireDate}" />
                 </VBox>
                 <VBox id="hireDateTextID" width="50%">
-                    <Input id="hireDateInput" type="Text"
+                    <DatePicker id="hireDateInput" 
                         placeholder="{i18n>placeholderHireDate}"
                         value="{employDetail>/hireDate}"
+                        valueFormat="yyyy-MM-dd" 
                         enabled="{Edit>/isEdit}" />
                 </VBox>
             </HBox>
