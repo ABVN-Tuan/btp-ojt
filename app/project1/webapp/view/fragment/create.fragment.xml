@@ -29,7 +29,7 @@
                         <Label id="creEmailLabel" text="{i18n>emailText}" required="true" />
                     </VBox>
                     <VBox id="creEmailTextID" width="50%">
-                        <Input id="creEmailInput" type="Text" placeholder="{i18n>placeholderEmail}" value="{createDetail>/email}" />
+                        <Input id="creEmailInput" type="Text" placeholder="{i18n>placeholderEmail}" value="{createDetail>/email}" liveChange="onChangeText" />
                     </VBox>
                 </HBox>
                 <HBox id="creHideDateID" alignItems="Center">
@@ -37,7 +37,7 @@
                         <Label id="creHireDateLabel" text="{i18n>hireDate}" required="true"/>
                     </VBox>
                     <VBox id="creHireDateTextID" width="50%">
-                        <Input id="creHireDateInput" type="Text" placeholder="{i18n>placeholderHireDate}" value="{createDetail>/hireDate}"/>
+                        <DatePicker id="creHireDateInput" placeholder="{i18n>placeholderHireDate}" value="{createDetail>/hireDate}" valueFormat="yyyy-MM-dd"/>
                     </VBox>
                 </HBox>
                 <HBox id="creDob" alignItems="Center">
@@ -45,7 +45,7 @@
                         <Label id="creDobLabel" text="{i18n>DobText}" required="true"  />
                     </VBox>
                     <VBox id="creHDobTextID" width="50%">
-                        <Input id="creDobInput" type="Text" placeholder="{i18n>DobText}" value="{createDetail>/dateOfBirth}" />
+                        <DatePicker id="creDobInput"  placeholder="{i18n>DobText}" value="{createDetail>/dateOfBirth}" valueFormat="yyyy-MM-dd" />
                     </VBox>
                 </HBox>
                 <HBox id="creGen" alignItems="Center">
@@ -53,7 +53,9 @@
                         <Label id="creGenLabel" text="{i18n>genderText}" required="true" />
                     </VBox>
                     <VBox id="creGenTextID" width="50%">
-                        <Input id="creGenInput" type="Text" placeholder="{i18n>genderText}" value="{createDetail>/gender}"/>
+                        <ComboBox id="creCbbGen" items="{genderModel>/Genders}" width="100%" placeholder="{i18n>placeholderRole}" selectedKey="{createDetail>/gender}" required="true">
+                            <core:Item id="creItemGen" key="{genderModel>key}" text="{genderModel>text}" />
+                        </ComboBox>
                     </VBox>
                 </HBox>
                 <HBox id="creRoleID" alignItems="Center">
