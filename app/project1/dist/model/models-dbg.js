@@ -45,6 +45,7 @@ function (JSONModel, Device) {
                     headers: {
                         "Content-Type": "application/json" }
                 });
+                console.log(oResRole);
                 if ( oResRole.status == 200 ) {
                     let oresRoJson = await oResRole.json();
                     let role = oresRoJson.value;
@@ -52,6 +53,12 @@ function (JSONModel, Device) {
                     console.log('isAdmin:',role);
                     return role;
                 }
+                if ( oResRole.status == 204 ) {
+                    console.log('vao day khong')
+                    this._setModel(oView, { '': '' }, "role");
+                    return role;
+                }
+                
             } 
             catch (error) {
                 return null;  
