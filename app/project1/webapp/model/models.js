@@ -54,7 +54,6 @@ function (JSONModel, Device) {
                     return role;
                 }
                 if ( oResRole.status == 204 ) {
-                    console.log('vao day khong')
                     this._setModel(oView, { '': '' }, "role");
                     return role;
                 }
