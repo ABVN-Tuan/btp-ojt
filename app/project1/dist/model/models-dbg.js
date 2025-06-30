@@ -37,6 +37,7 @@ function (JSONModel, Device) {
             this._setModel(oView, visibleView , "VisibleControl" );
         },
         getRole: async function(oView){
+            console.log('start get role');
             try {
                 const oResRole = await fetch("/ojt/whoami",
                 {
@@ -48,7 +49,7 @@ function (JSONModel, Device) {
                     let oresRoJson = await oResRole.json();
                     let role = oresRoJson.value;
                     this._setModel(oView, { role: role }, "role");
-                    console.log(role);
+                    console.log('isAdmin:',role);
                     return role;
                 }
             } 

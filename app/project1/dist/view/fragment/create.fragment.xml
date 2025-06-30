@@ -76,7 +76,7 @@
                         </ComboBox>
                     </VBox>
                 </HBox>
-                <Button id="creaetButton" icon="sap-icon://create" type="Transparent" press=".onCreateEmployee" text = "Create employee" />
+                <Button id="creaetButton" icon="sap-icon://create" type="Transparent" press=".onCreateEmployee" text = "Create employee" visible="{ path: 'role>/role', formatter: '.formatter.isAdmin' }" />
             </VBox>
         </VBox>
     </VBox>

@@ -13,8 +13,8 @@ service myService @(required: 'authenticated-user'){
 }
 // Grand authorization for entity Employees by role
 annotate myService.Employees with @(restrict:[
-    // {grant: ['READ'],
-    // to: ['employee']},
+    {grant: ['READ'],
+    to: ['employee']},
     {grant: ['READ','UPDATE','CREATE','DELETE'],
     to: ['admin','']},
 ]) ;
@@ -37,7 +37,7 @@ annotate myService.Departments with @(restrict:[
 
 //Grand authorization for entity leaveRequest by role
 annotate myService.leaveRequest with @(restrict:[
-    {grant: ['READ','UPDATE','CREATE'],
+    {grant: ['READ','UPDATE','CREATE','DELETE'],
     to: ['admin']}
 ]) ;
 
