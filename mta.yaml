@@ -60,12 +60,12 @@ modules:
     build-result: app/
     requires:
     - artifacts:
-      - project1.zip
-      name: ojtProjectproject1
+      - employee.zip
+      name: ojtProjectemployee
       target-path: app/
-- name: ojtProjectproject1
+- name: ojtProjectemployee
   type: html5
-  path: app/project1
+  path: app/employee
   build-parameters:
     build-result: dist
     builder: custom
@@ -108,12 +108,17 @@ resources:
   type: org.cloudfoundry.managed-service
   parameters:
     config:
+      oauth2-configuration:
+        redirect-uris:
+        - https://~{app-api/app-uri}/**
       tenant-mode: dedicated
       xsappname: ojtProject-${org}-${space}
     path: ./xs-security.json
     service: xsuaa
     service-name: ojtProject-xsuaa-service
     service-plan: application
+  requires:
+  - name: app-api
 - name: ojtProject-connectivity
   type: org.cloudfoundry.managed-service
   parameters:
